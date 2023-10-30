@@ -1,4 +1,6 @@
 package org.Dmytro.repository;
 
-public interface LabelRepository extends GenericRepository {
+import org.Dmytro.model.Label;
+
+public interface LabelRepository extends GenericRepository<Label, Integer> {
 }
