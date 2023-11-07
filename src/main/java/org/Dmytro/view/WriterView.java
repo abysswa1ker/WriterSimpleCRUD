@@ -25,4 +25,8 @@ public class WriterView {
         System.out.println("New writer created");
 
     }
+    public void createWriter(Writer writer) {
+        writerController.createWriter(writer);
+    }
+
 }
