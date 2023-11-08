@@ -1,7 +1,7 @@
-package org.Dmytro.controller;
+package org.dmytro.crudapp.controller;
 
-import org.Dmytro.model.Writer;
-import org.Dmytro.repository.WriterRepository;
+import org.dmytro.crudapp.model.Writer;
+import org.dmytro.crudapp.repository.WriterRepository;
 
 import java.util.List;
 

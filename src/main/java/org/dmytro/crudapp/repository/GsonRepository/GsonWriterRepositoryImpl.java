@@ -1,11 +1,11 @@
-package org.Dmytro.repository.GsonRepository;
+package org.dmytro.crudapp.repository.GsonRepository;
 
-import org.Dmytro.model.Post;
-import org.Dmytro.model.Writer;
+import org.dmytro.crudapp.model.Post;
+import org.dmytro.crudapp.model.Writer;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.Dmytro.repository.WriterRepository;
+import org.dmytro.crudapp.repository.WriterRepository;
 
 import java.io.*;
 

@@ -1,6 +1,6 @@
-package org.Dmytro.model;
+package org.dmytro.crudapp.model;
 
-import org.Dmytro.enams.PostStatus;
+import org.dmytro.crudapp.enams.PostStatus;
 
 public class Label {
     private int id;

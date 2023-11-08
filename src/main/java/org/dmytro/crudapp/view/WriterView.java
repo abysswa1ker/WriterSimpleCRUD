@@ -1,7 +1,7 @@
-package org.Dmytro.view;
+package org.dmytro.crudapp.view;
 
-import org.Dmytro.controller.WriterController;
-import org.Dmytro.model.Writer;
+import org.dmytro.crudapp.controller.WriterController;
+import org.dmytro.crudapp.model.Writer;
 
 import java.util.Scanner;
 

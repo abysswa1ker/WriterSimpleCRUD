@@ -1,10 +1,10 @@
-package org.Dmytro.repository.GsonRepository;
+package org.dmytro.crudapp.repository.GsonRepository;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.Dmytro.model.Label;
-import org.Dmytro.model.Post;
-import org.Dmytro.repository.LabelRepository;
+import org.dmytro.crudapp.model.Label;
+import org.dmytro.crudapp.model.Post;
+import org.dmytro.crudapp.repository.LabelRepository;
 
 import java.io.FileReader;
 import java.io.FileWriter;

@@ -1,14 +1,14 @@
-package org.Dmytro;
+package org.dmytro.crudapp;
 
-import org.Dmytro.controller.LabelController;
-import org.Dmytro.controller.PostController;
-import org.Dmytro.controller.WriterController;
-import org.Dmytro.repository.GsonRepository.GsonLabelRepositoryImpl;
-import org.Dmytro.repository.GsonRepository.GsonPostRepositoryImpl;
-import org.Dmytro.repository.GsonRepository.GsonWriterRepositoryImpl;
-import org.Dmytro.view.LabelView;
-import org.Dmytro.view.PostView;
-import org.Dmytro.view.WriterView;
+import org.dmytro.crudapp.controller.LabelController;
+import org.dmytro.crudapp.controller.PostController;
+import org.dmytro.crudapp.controller.WriterController;
+import org.dmytro.crudapp.repository.GsonRepository.GsonLabelRepositoryImpl;
+import org.dmytro.crudapp.repository.GsonRepository.GsonPostRepositoryImpl;
+import org.dmytro.crudapp.repository.GsonRepository.GsonWriterRepositoryImpl;
+import org.dmytro.crudapp.view.LabelView;
+import org.dmytro.crudapp.view.PostView;
+import org.dmytro.crudapp.view.WriterView;
 
 public class Main {
     public static void main(String[] args) {

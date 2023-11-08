@@ -1,7 +1,7 @@
-package org.Dmytro.view;
+package org.dmytro.crudapp.view;
 
-import org.Dmytro.controller.PostController;
-import org.Dmytro.model.Post;
+import org.dmytro.crudapp.controller.PostController;
+import org.dmytro.crudapp.model.Post;
 
 public class PostView {
     private final PostController postController;

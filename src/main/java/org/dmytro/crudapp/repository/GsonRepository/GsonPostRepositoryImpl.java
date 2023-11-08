@@ -1,9 +1,9 @@
-package org.Dmytro.repository.GsonRepository;
+package org.dmytro.crudapp.repository.GsonRepository;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.Dmytro.model.Post;
-import org.Dmytro.repository.PostRepository;
+import org.dmytro.crudapp.model.Post;
+import org.dmytro.crudapp.repository.PostRepository;
 
 import java.io.FileReader;
 import java.io.FileWriter;

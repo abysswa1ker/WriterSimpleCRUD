@@ -1,9 +1,7 @@
-package org.Dmytro.controller;
+package org.dmytro.crudapp.controller;
 
-import org.Dmytro.model.Label;
-import org.Dmytro.model.Writer;
-import org.Dmytro.repository.LabelRepository;
-import org.Dmytro.repository.WriterRepository;
+import org.dmytro.crudapp.model.Label;
+import org.dmytro.crudapp.repository.LabelRepository;
 
 import java.util.List;
 

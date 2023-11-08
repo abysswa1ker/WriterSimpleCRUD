@@ -1,4 +1,4 @@
-package org.Dmytro.model;
+package org.dmytro.crudapp.model;
 
 import java.util.List;
 

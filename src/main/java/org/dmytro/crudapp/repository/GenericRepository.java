@@ -1,6 +1,6 @@
-package org.Dmytro.repository;
+package org.dmytro.crudapp.repository;
 
-import org.Dmytro.model.Post;
+import org.dmytro.crudapp.model.Post;
 
 import java.util.List;
 

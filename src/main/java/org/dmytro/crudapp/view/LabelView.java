@@ -1,7 +1,7 @@
-package org.Dmytro.view;
+package org.dmytro.crudapp.view;
 
-import org.Dmytro.controller.LabelController;
-import org.Dmytro.model.Label;
+import org.dmytro.crudapp.controller.LabelController;
+import org.dmytro.crudapp.model.Label;
 
 import java.util.Scanner;
 
