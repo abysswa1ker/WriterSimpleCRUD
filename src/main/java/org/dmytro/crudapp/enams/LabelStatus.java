@@ -1,7 +1,6 @@
 package org.dmytro.crudapp.enams;
 
-public enum PostStatus {
+public enum LabelStatus {
     ACTIVE,
     DELETED,
-    UNDER_REVIEW
 }

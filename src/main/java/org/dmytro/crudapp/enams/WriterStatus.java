@@ -1,7 +1,6 @@
 package org.dmytro.crudapp.enams;
 
-public enum PostStatus {
+public enum WriterStatus {
     ACTIVE,
     DELETED,
-    UNDER_REVIEW
 }

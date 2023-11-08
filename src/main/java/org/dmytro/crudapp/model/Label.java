@@ -1,7 +1,13 @@
 package org.dmytro.crudapp.model;
 
+import lombok.*;
 import org.dmytro.crudapp.enams.PostStatus;
 
+@ToString
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Label {
     private int id;
     private String name;
@@ -16,32 +22,5 @@ public class Label {
         this.status = PostStatus.ACTIVE;
         this.id = id;
         this.name = name;
-    }
-
-    public Label() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Label{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }
