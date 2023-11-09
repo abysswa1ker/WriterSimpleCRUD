@@ -9,7 +9,7 @@ import org.dmytro.crudapp.enams.PostStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Label {
-    private int id;
+    private Integer id;
     private String name;
     private PostStatus status;
 
@@ -18,7 +18,7 @@ public class Label {
         this.name = name;
     }
 
-    public Label(int id, String name) {
+    public Label(Integer id, String name) {
         this.status = PostStatus.ACTIVE;
         this.id = id;
         this.name = name;

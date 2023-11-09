@@ -1,4 +1,4 @@
-package org.dmytro.crudapp.repository.GsonRepository;
+package org.dmytro.crudapp.repository.gson;
 
 import org.dmytro.crudapp.model.Post;
 import org.dmytro.crudapp.model.Writer;

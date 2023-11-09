@@ -3,12 +3,18 @@ package org.dmytro.crudapp;
 import org.dmytro.crudapp.controller.LabelController;
 import org.dmytro.crudapp.controller.PostController;
 import org.dmytro.crudapp.controller.WriterController;
-import org.dmytro.crudapp.repository.GsonRepository.GsonLabelRepositoryImpl;
-import org.dmytro.crudapp.repository.GsonRepository.GsonPostRepositoryImpl;
-import org.dmytro.crudapp.repository.GsonRepository.GsonWriterRepositoryImpl;
+import org.dmytro.crudapp.model.Label;
+import org.dmytro.crudapp.model.Post;
+import org.dmytro.crudapp.model.Writer;
+import org.dmytro.crudapp.repository.gson.GsonLabelRepositoryImpl;
+import org.dmytro.crudapp.repository.gson.GsonPostRepositoryImpl;
+import org.dmytro.crudapp.repository.gson.GsonWriterRepositoryImpl;
 import org.dmytro.crudapp.view.LabelView;
 import org.dmytro.crudapp.view.PostView;
 import org.dmytro.crudapp.view.WriterView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,17 +30,17 @@ public class Main {
         PostController postController = new PostController(gsonPostRepository);
         PostView postView = new PostView(postController);
 
-//        Label label1 = new Label(1, "game");
-//        List<Label> labelList = new ArrayList<>();
-//        labelList.add(label);
-//
-//        Post post = new Post(1,"some text", labelList);
-//        List<Post> postList = new ArrayList<>();
-//        postList.add(post);
-//
-//        Writer writer = new Writer(1, "Dima", "Zhabskiy", postList);
-//
-//        writerView.createWriter(writer);
+        Label label = new Label(1, "game");
+        List<Label> labelList = new ArrayList<>();
+        labelList.add(label);
+
+        Post post = new Post(1,"some text", labelList);
+        List<Post> postList = new ArrayList<>();
+        postList.add(post);
+
+        Writer writer = new Writer(1, "Dima", "Zhabskiy", postList);
+
+        writerView.createWriter(writer);
 
         System.out.println(writerController.getById(1));
     }

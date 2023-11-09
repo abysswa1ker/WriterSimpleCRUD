@@ -1,4 +1,4 @@
-package org.dmytro.crudapp.repository.GsonRepository;
+package org.dmytro.crudapp.repository.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +21,7 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
     private final Gson gson = new Gson();
 
     //TODO: change name of method like loadLabels
-    private List<Label> readAll() {
+    private List<Label> loadLabels() {
         List<Label> labelList = new ArrayList<>();
         try(Reader reader = new FileReader(FILE_PATH)) {
             Type type = new TypeToken<List<Label>>(){}.getType();
@@ -29,13 +30,11 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
             return labelList;
 
         } catch (IOException e) {
-//            e.printStackTrace();
-            //TODO: think about this
             return Collections.emptyList();
         }
     }
 
-    private void writeAll(List<Label> labels) {
+    private void saveLabels(List<Label> labels) {
         try(FileWriter fileLabels = new FileWriter(FILE_PATH)) {
             gson.toJson(labels, fileLabels);
             System.out.println("Write operation successful. Writers  saved to file.");
@@ -46,35 +45,32 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
 
     @Override
     public Label getById(Integer id) {
-        List<Label> labelList = readAll();
-        for (Label label: labelList) {
-            if (label.getId() == id){
-                return label;
-            }
-        }
-        return null;
+        return loadLabels().stream()
+                .filter(label -> label.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new FileSystemNotFoundException("label not found with id: " + id));
     }
 
     @Override
     public List<Label> getAll() {
-        return readAll();
+        return loadLabels();
     }
 
     @Override
     public Label save(Label label) {
-        List<Label> labelList = readAll();
+        List<Label> labelList = loadLabels();
         labelList.add(label);
-        writeAll(labelList);
+        saveLabels(labelList);
         return label;
     }
 
     @Override
     public Label update(Label updatedLabel) {
-        List<Label> labelList = readAll();
+        List<Label> labelList = loadLabels();
         for (int i = 0; i < labelList.size(); i ++) {
             if (labelList.get(i).getId() == updatedLabel.getId()) {
                 labelList.set(i, updatedLabel);
-                writeAll(labelList);
+                saveLabels(labelList);
                 return updatedLabel;
             }
         }
@@ -83,9 +79,9 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
 
     @Override
     public Post deleteById(Integer id) {
-        List<Label> labelList = readAll();
+        List<Label> labelList = loadLabels();
         labelList.removeIf(label -> label.getId() == id);
-        writeAll(labelList);
+        saveLabels(labelList);
         return null;
     }
 }
