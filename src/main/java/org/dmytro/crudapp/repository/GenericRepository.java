@@ -9,5 +9,5 @@ public interface GenericRepository <T,ID>{
     List<T> getAll();
     T save(T t);
     T update(T t);
-    Post deleteById(ID id);
+    void deleteById(ID id);
 }

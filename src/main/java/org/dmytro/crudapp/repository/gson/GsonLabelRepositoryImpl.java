@@ -3,7 +3,6 @@ package org.dmytro.crudapp.repository.gson;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.dmytro.crudapp.model.Label;
-import org.dmytro.crudapp.model.Post;
 import org.dmytro.crudapp.repository.LabelRepository;
 
 import java.io.FileReader;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.FileSystemNotFoundException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,9 +18,8 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
     private static final String FILE_PATH = "src/main/resources/labels.json";
     private final Gson gson = new Gson();
 
-    //TODO: change name of method like loadLabels
     private List<Label> loadLabels() {
-        List<Label> labelList = new ArrayList<>();
+        List<Label> labelList;
         try(Reader reader = new FileReader(FILE_PATH)) {
             Type type = new TypeToken<List<Label>>(){}.getType();
             labelList = gson.fromJson(reader, type);
@@ -57,31 +54,35 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
     }
 
     @Override
-    public Label save(Label label) {
+    public Label save(Label newLabel) {
         List<Label> labelList = loadLabels();
-        labelList.add(label);
+        Integer nextId = labelList.stream()
+                        .mapToInt(Label::getId).max().orElse(0)+1;
+        newLabel.setId(nextId);
+        labelList.add(newLabel);
         saveLabels(labelList);
-        return label;
+        return newLabel;
     }
 
     @Override
     public Label update(Label updatedLabel) {
-        List<Label> labelList = loadLabels();
-        for (int i = 0; i < labelList.size(); i ++) {
-            if (labelList.get(i).getId() == updatedLabel.getId()) {
-                labelList.set(i, updatedLabel);
-                saveLabels(labelList);
-                return updatedLabel;
-            }
-        }
-        return null;
+        List<Label> currentLabels = loadLabels();
+        List<Label> updatedLabels = currentLabels.stream()
+                .map(existingLabel -> {
+                    if (existingLabel.getId().equals(updatedLabel.getId())) {
+                        return updatedLabel;
+                    }
+                    return existingLabel;
+                }).toList();
+        saveLabels(updatedLabels);
+        return updatedLabel;
     }
 
+    //TODO: think about this realization
     @Override
-    public Post deleteById(Integer id) {
+    public void deleteById(Integer id) {
         List<Label> labelList = loadLabels();
-        labelList.removeIf(label -> label.getId() == id);
+        labelList.removeIf(label -> label.getId().equals(id));
         saveLabels(labelList);
-        return null;
     }
 }

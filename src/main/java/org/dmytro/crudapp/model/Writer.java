@@ -1,6 +1,7 @@
 package org.dmytro.crudapp.model;
 
 import lombok.*;
+import org.dmytro.crudapp.enams.WriterStatus;
 
 import java.util.List;
 
@@ -10,10 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Writer {
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private List<Post> postList;
+    private WriterStatus writerStatus;
 
     public Writer( String firstName, String lastName, List<Post> postList) {
         this.firstName = firstName;

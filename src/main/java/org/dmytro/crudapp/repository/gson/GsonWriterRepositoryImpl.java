@@ -1,5 +1,6 @@
 package org.dmytro.crudapp.repository.gson;
 
+import org.dmytro.crudapp.model.Label;
 import org.dmytro.crudapp.model.Post;
 import org.dmytro.crudapp.model.Writer;
 
@@ -12,58 +13,14 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GsonWriterRepositoryImpl implements WriterRepository {
     private final String filePath = "writers.json";
     private final Gson gson = new Gson();
 
-    @Override
-    public Writer getById(Integer id) {
-        List<Writer> writers = readAll();
-        for (Writer writer: writers) {
-            if (writer.getId() == id) {
-                return writer;
-            }
-        }
-        return null;
-    }
 
-    @Override
-    public List<Writer> getAll() {
-        return readAll();
-    }
-
-    @Override
-    public Writer save(Writer writer) {
-        List<Writer> writers = readAll();
-        writers.add(writer);
-        writeAll(writers);
-
-        return writer;
-    }
-
-    @Override
-    public Writer update(Writer updatedWriter) {
-        List<Writer> writers = readAll();
-        for (int i =0; i < writers.size(); i++) {
-            if (writers.get(i).getId() == updatedWriter.getId()) {
-                writers.set(i, updatedWriter);
-                writeAll(writers);
-                return  updatedWriter;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Post deleteById(Integer id) {
-        List<Writer> writers = readAll();
-        writers.removeIf(writer -> writer.getId() == id);
-        writeAll(writers);
-        return null;
-    }
-
-    private List<Writer> readAll() {
+    private List<Writer> loadWriters() {
         List<Writer> fileWriters = new ArrayList<>();
         try(Reader reader = new FileReader(filePath)) {
             Type type = new TypeToken<List<Writer>>(){}.getType();
@@ -76,17 +33,63 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
         return fileWriters;
     }
 
-    private void writeAll(List<Writer> writers) {
+    private void saveWriters(List<Writer> writers) {
         try(FileWriter fileWriter = new FileWriter(filePath)) {
-//            System.out.println("Content of writers list before writing to file:");
-//            for (Writer writer1 : writers) {
-//                System.out.println(writer1); // Предполагается, что у класса Writer определен toString()
-//            }
             gson.toJson(writers, fileWriter);
             System.out.println("Write operation successful. Writers  saved to file.");
         } catch (IOException e) {
             System.out.println("Ошибка при чтении файла");
             e.printStackTrace();
         }
+    }
+    @Override
+    public Writer getById(Integer id) {
+        List<Writer> writers = loadWriters();
+        for (Writer writer: writers) {
+            if (writer.getId() == id) {
+                return writer;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Writer> getAll() {
+        return loadWriters();
+    }
+
+    @Override
+    public Writer save(Writer writer) {
+        List<Writer> currentWriters = loadWriters();
+        Integer nextId = currentWriters.stream()
+                        .mapToInt(Writer::getId).max().orElse(0)+1;
+
+        writer.setId(nextId);
+        currentWriters.add(writer);
+        saveWriters(currentWriters);
+
+        return writer;
+    }
+
+    @Override
+    public Writer update(Writer updateWriter) {
+        List<Writer> currentWriters = loadWriters();
+        List<Writer> updatedWriters = currentWriters.stream()
+                .map(existingWriter -> {
+                    if (existingWriter.getId().equals(updateWriter.getId())) {
+                        return updateWriter;
+                    }
+                    return existingWriter;
+                }).toList();
+        saveWriters(updatedWriters);
+        return updateWriter;
+    }
+
+    @Override
+    public Post deleteById(Integer id) {
+        List<Writer> writers = loadWriters();
+        writers.removeIf(writer -> writer.getId() == id);
+        saveWriters(writers);
+        return null;
     }
 }

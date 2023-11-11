@@ -37,11 +37,15 @@ public class Main {
         Post post = new Post(1,"some text", labelList);
         List<Post> postList = new ArrayList<>();
         postList.add(post);
+//
+//        Writer writer = new Writer( "Dima", "Zhabskiy", postList);
+//
+//        writerView.createWriter(writer);
+//
+//        System.out.println(writerController.getById(1));
 
-        Writer writer = new Writer(1, "Dima", "Zhabskiy", postList);
+        Writer updateWriter = new Writer( "Kate", "Zhabskiy", postList);
 
-        writerView.createWriter(writer);
-
-        System.out.println(writerController.getById(1));
+        writerController.updatedWriter(updateWriter);
     }
 }

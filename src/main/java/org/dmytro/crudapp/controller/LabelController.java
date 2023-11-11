@@ -1,16 +1,14 @@
 package org.dmytro.crudapp.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.dmytro.crudapp.model.Label;
 import org.dmytro.crudapp.repository.LabelRepository;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 public class LabelController {
     private final LabelRepository labelRepository;
-
-    public LabelController(LabelRepository labelRepository) {
-        this.labelRepository = labelRepository;
-    }
 
     public Label createWriter(Label label) {
         return labelRepository.save(label);
