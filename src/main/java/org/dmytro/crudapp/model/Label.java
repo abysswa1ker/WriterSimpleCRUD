@@ -13,7 +13,8 @@ public class Label {
     private String name;
     private LabelStatus status;
 
-    public Label(String name) {
+    public Label(String name, LabelStatus status) {
         this.name = name;
+        this.status = status;
     }
 }
