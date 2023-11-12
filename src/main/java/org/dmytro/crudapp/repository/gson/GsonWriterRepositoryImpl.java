@@ -86,10 +86,9 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     }
 
     @Override
-    public Post deleteById(Integer id) {
+    public void deleteById(Integer id) {
         List<Writer> writers = loadWriters();
         writers.removeIf(writer -> writer.getId() == id);
         saveWriters(writers);
-        return null;
     }
 }

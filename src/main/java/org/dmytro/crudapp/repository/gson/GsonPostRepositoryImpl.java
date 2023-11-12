@@ -80,14 +80,13 @@ public class GsonPostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Post deleteById(Integer id) {
+    public void deleteById(Integer id) {
         List<Post> postList = loadPosts();
         for(Post post: postList) {
             if (post.getId() == id) {
                 postList.remove(post);
             }
         }
-        return null;
     }
 
 

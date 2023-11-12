@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.FileSystemNotFoundException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
         try(Reader reader = new FileReader(FILE_PATH)) {
             Type type = new TypeToken<List<Label>>(){}.getType();
             labelList = gson.fromJson(reader, type);
+            if (labelList == null) {
+                labelList = new ArrayList<>();
+            }
             System.out.println("Read operation successful. Retrieved writers from file.");
             return labelList;
 

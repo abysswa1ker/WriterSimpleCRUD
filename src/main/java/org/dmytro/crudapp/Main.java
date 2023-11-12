@@ -15,28 +15,24 @@ import org.dmytro.crudapp.view.WriterView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        GsonWriterRepositoryImpl gsonWriterRepository = new GsonWriterRepositoryImpl();
-        WriterController writerController = new WriterController(gsonWriterRepository);
-        WriterView writerView = new WriterView(writerController);
+//        GsonWriterRepositoryImpl gsonWriterRepository = new GsonWriterRepositoryImpl();
+//        WriterController writerController = new WriterController(gsonWriterRepository);
+//        WriterView writerView = new WriterView(writerController);
 
         GsonLabelRepositoryImpl gsonLabelRepository = new GsonLabelRepositoryImpl();
         LabelController labelController = new LabelController(gsonLabelRepository);
-        LabelView labelView = new LabelView(labelController);
+        LabelView labelView = new LabelView(labelController, new Scanner(System.in));
 
-        GsonPostRepositoryImpl gsonPostRepository = new GsonPostRepositoryImpl();
-        PostController postController = new PostController(gsonPostRepository);
-        PostView postView = new PostView(postController);
+        labelView.run();
 
-        Label label = new Label(1, "game");
-        List<Label> labelList = new ArrayList<>();
-        labelList.add(label);
+//        GsonPostRepositoryImpl gsonPostRepository = new GsonPostRepositoryImpl();
+//        PostController postController = new PostController(gsonPostRepository);
+//        PostView postView = new PostView(postController);
 
-        Post post = new Post(1,"some text", labelList);
-        List<Post> postList = new ArrayList<>();
-        postList.add(post);
 //
 //        Writer writer = new Writer( "Dima", "Zhabskiy", postList);
 //
@@ -44,8 +40,6 @@ public class Main {
 //
 //        System.out.println(writerController.getById(1));
 
-        Writer updateWriter = new Writer( "Kate", "Zhabskiy", postList);
 
-        writerController.updatedWriter(updateWriter);
     }
 }
