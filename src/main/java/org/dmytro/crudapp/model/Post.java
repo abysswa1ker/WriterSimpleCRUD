@@ -26,7 +26,14 @@ public class Post {
         this.labels = labels;
     }
 
-    public Post(String content, PostStatus postStatus) {
+    public Post(String content, PostStatus postStatus, List<Label> labelList) {
+        this.content = content;
+        this.postStatus = postStatus;
+        this.labels = labelList;
+    }
+
+    public Post(Integer id, String content, PostStatus postStatus) {
+        this.id = id;
         this.content = content;
         this.postStatus = postStatus;
     }

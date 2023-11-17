@@ -1,6 +1,7 @@
 package org.dmytro.crudapp.controller;
 
 import org.dmytro.crudapp.enams.PostStatus;
+import org.dmytro.crudapp.model.Label;
 import org.dmytro.crudapp.model.Post;
 import org.dmytro.crudapp.repository.PostRepository;
 
@@ -13,12 +14,12 @@ public class PostController {
         this.postRepository = postRepository;
     }
 
-    public Post createPost(String name, PostStatus postStatus) {
-        Post newPost = new Post(name, postStatus);
+    public Post createPost(String content, PostStatus postStatus, List<Label> labelList ) {
+        Post newPost = new Post(content, postStatus, labelList);
         return postRepository.save(newPost);
     }
 
-    public Post getById(int id) {
+    public Post getById(Integer id) {
         return postRepository.getById(id);
     }
 
@@ -26,8 +27,13 @@ public class PostController {
         return postRepository.getAll();
     }
 
-    public Post updatedPost(Post updatedPost) {
+    public Post updatedPost(Integer id, String updatedContent, PostStatus postStatus) {
+        Post updatedPost = new Post(id, updatedContent, postStatus);
         return postRepository.update(updatedPost);
+    }
+
+    public Post updatedPostWithLabels(Integer id, String updatedContent, List<Label> updatedLabels){
+        return null;
     }
 
     public void deletePostById(int id) {
