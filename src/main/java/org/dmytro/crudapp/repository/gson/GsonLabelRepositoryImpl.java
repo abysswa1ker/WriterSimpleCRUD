@@ -27,9 +27,7 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
             if (labelList == null) {
                 labelList = new ArrayList<>();
             }
-            System.out.println("Read operation successful. Retrieved writers from file.");
             return labelList;
-
         } catch (IOException e) {
             return Collections.emptyList();
         }
@@ -38,7 +36,6 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
     private void saveLabels(List<Label> labels) {
         try(FileWriter fileLabels = new FileWriter(FILE_PATH)) {
             gson.toJson(labels, fileLabels);
-            System.out.println("Write operation successful. Writers  saved to file.");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -62,7 +62,7 @@ public class LabelView {
         System.out.println("Enter name");
         String name = scanner.nextLine();
 
-       LabelStatus labelStatus = LabelStatus.ACTIVE;
+        LabelStatus labelStatus = LabelStatus.ACTIVE;
 
         Label newLabel = labelController.createLabel(name, labelStatus);
         System.out.println("Label created with ID: " + newLabel.getId());

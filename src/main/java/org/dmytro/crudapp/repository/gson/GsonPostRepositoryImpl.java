@@ -7,6 +7,7 @@ import org.dmytro.crudapp.repository.PostRepository;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,9 +22,10 @@ public class GsonPostRepositoryImpl implements PostRepository {
         try(Reader reader = new FileReader(FILE_PATH)) {
             Type type = new TypeToken<List<Post>>(){}.getType();
             postsList = gson.fromJson(reader, type);
-            System.out.println("Read operation successful. Retrieved posts from file.");
+            if (postsList == null) {
+                return new ArrayList<>();
+            }
             return postsList;
-
         } catch (IOException e) {
             return Collections.emptyList();
         }
@@ -32,25 +34,16 @@ public class GsonPostRepositoryImpl implements PostRepository {
     private void savePosts(List<Post> posts) {
         try(FileWriter fileLabels = new FileWriter(FILE_PATH)) {
             gson.toJson(posts, fileLabels);
-            System.out.println("Write operation successful. Posts  saved to file.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     @Override
     public Post getById(Integer id) {
-        //TODO: think about this
-//        return loadPosts().stream()
-//                .filter(post -> post.getId().equals(id))
-//                .findFirst()
-//                .orElseThrow(() -> new NotFoundException("post not found"));
-        List<Post> postsList = loadPosts();
-        for (Post post : postsList) {
-            if (post.getId() == id) {
-                return post;
-            }
-        }
-        return null;
+        return loadPosts().stream()
+                .filter(post -> post.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new FileSystemNotFoundException("post not found"));
     }
 
     @Override
@@ -58,35 +51,37 @@ public class GsonPostRepositoryImpl implements PostRepository {
         return loadPosts();
     }
 
+
     @Override
-    public Post save(Post post) {
+    public Post save(Post newPost) {
         List<Post> postList = loadPosts();
-        postList.add(post);
+        Integer nextInt = postList.stream()
+                .mapToInt(Post::getId).max().orElse(0) + 1;
+        newPost.setId(nextInt);
+        postList.add(newPost);
         savePosts(postList);
-        return post;
+        return newPost;
     }
 
     @Override
     public Post update(Post updatedPost) {
-        List<Post> postList = loadPosts();
-        for (int i = 0; i < postList.size(); i++) {
-            if (postList.get(i).getId() == updatedPost.getId()) {
-                postList.set(i, updatedPost);
-                savePosts(postList);
-                return updatedPost;
-            }
-        }
-        return null;
+        List<Post> currentPosts = loadPosts();
+        List<Post> updatedPosts = currentPosts.stream().
+                map(existingPost -> {
+                    if (updatedPost.getId().equals(existingPost.getId())) {
+                        return updatedPost;
+                    }
+                    return existingPost;
+                }).toList();
+        savePosts(updatedPosts);
+        return updatedPost;
     }
 
     @Override
     public void deleteById(Integer id) {
         List<Post> postList = loadPosts();
-        for(Post post: postList) {
-            if (post.getId() == id) {
-                postList.remove(post);
-            }
-        }
+        postList.removeIf(post -> post.getId().equals(id));
+        savePosts(postList);
     }
 
 

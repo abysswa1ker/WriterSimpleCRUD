@@ -1,5 +1,6 @@
 package org.dmytro.crudapp.controller;
 
+import org.dmytro.crudapp.enams.PostStatus;
 import org.dmytro.crudapp.model.Post;
 import org.dmytro.crudapp.repository.PostRepository;
 
@@ -12,8 +13,9 @@ public class PostController {
         this.postRepository = postRepository;
     }
 
-    public Post createPost(Post post) {
-        return postRepository.save(post);
+    public Post createPost(String name, PostStatus postStatus) {
+        Post newPost = new Post(name, postStatus);
+        return postRepository.save(newPost);
     }
 
     public Post getById(int id) {
