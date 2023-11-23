@@ -23,6 +23,11 @@ public class Writer {
         this.postList = postList;
     }
 
+    public Writer(String firstName, String lastName, WriterStatus writerStatus) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.writerStatus = writerStatus;
+    }
     public Writer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;

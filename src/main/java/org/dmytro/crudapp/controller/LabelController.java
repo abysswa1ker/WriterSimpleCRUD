@@ -6,6 +6,7 @@ import org.dmytro.crudapp.enams.PostStatus;
 import org.dmytro.crudapp.model.Label;
 import org.dmytro.crudapp.repository.LabelRepository;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class LabelController {
         return labelRepository.save(newLabel);
     }
 
-    public Label getLabelById(Integer id) {
+    public Label getLabelById(Integer id) throws FileNotFoundException {
         return labelRepository.getById(id);
     }
 

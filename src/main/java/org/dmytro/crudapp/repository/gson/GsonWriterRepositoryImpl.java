@@ -1,7 +1,5 @@
 package org.dmytro.crudapp.repository.gson;
 
-import org.dmytro.crudapp.model.Label;
-import org.dmytro.crudapp.model.Post;
 import org.dmytro.crudapp.model.Writer;
 
 import com.google.gson.Gson;
@@ -13,19 +11,20 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GsonWriterRepositoryImpl implements WriterRepository {
-    private final String filePath = "writers.json";
+    private static final String FILE_PATH = "src/main/resources/labels.json";
     private final Gson gson = new Gson();
 
 
     private List<Writer> loadWriters() {
         List<Writer> fileWriters = new ArrayList<>();
-        try(Reader reader = new FileReader(filePath)) {
+        try(Reader reader = new FileReader(FILE_PATH)) {
             Type type = new TypeToken<List<Writer>>(){}.getType();
             fileWriters = gson.fromJson(reader, type);
-            System.out.println("Read operation successful. Retrieved writers from file.");
+            if (fileWriters== null) {
+                fileWriters = new ArrayList<>();
+            }
         } catch (IOException e) {
             System.out.println("Ошибка при чтении файла");
             e.printStackTrace();
@@ -34,23 +33,18 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     }
 
     private void saveWriters(List<Writer> writers) {
-        try(FileWriter fileWriter = new FileWriter(filePath)) {
-            gson.toJson(writers, fileWriter);
-            System.out.println("Write operation successful. Writers  saved to file.");
+        try(FileWriter fileLabels = new FileWriter(FILE_PATH)) {
+            gson.toJson(writers, fileLabels);
         } catch (IOException e) {
-            System.out.println("Ошибка при чтении файла");
             e.printStackTrace();
         }
     }
     @Override
-    public Writer getById(Integer id) {
-        List<Writer> writers = loadWriters();
-        for (Writer writer: writers) {
-            if (writer.getId() == id) {
-                return writer;
-            }
-        }
-        return null;
+    public Writer getById(Integer id) throws FileNotFoundException {
+        return loadWriters().stream()
+                .filter(writer -> writer.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new FileNotFoundException("Writer not found with id " + id) );
     }
 
     @Override

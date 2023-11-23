@@ -37,8 +37,6 @@ public class PostView {
                 case 1:
                     createPost();
             }
-
-
         }
     }
 
@@ -47,12 +45,5 @@ public class PostView {
         String content = scanner.nextLine();
         System.out.println("chose label to add");
         System.out.println(labelController.getAllLabels());
-
-
-
-
-
     }
-
-
 }
