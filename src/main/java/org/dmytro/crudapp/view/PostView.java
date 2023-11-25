@@ -4,7 +4,9 @@ import org.dmytro.crudapp.controller.LabelController;
 import org.dmytro.crudapp.controller.PostController;
 import org.dmytro.crudapp.enams.PostStatus;
 import org.dmytro.crudapp.model.Label;
+import org.dmytro.crudapp.model.Post;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,5 +47,19 @@ public class PostView {
         String content = scanner.nextLine();
         System.out.println("chose label to add");
         System.out.println(labelController.getAllLabels());
+    }
+    private void getPostByID(Integer id) throws FileNotFoundException {
+        System.out.println("Enter id");
+        String content = scanner.nextLine();
+
+        Post postById = postController.getPostById(id);
+    }
+
+    private void deletePostById(Integer id) {
+        System.out.println("Enter id");
+        String content = scanner.nextLine();
+
+        postController.deletePostById(id);
+        System.out.println("Post deleted");
     }
 }

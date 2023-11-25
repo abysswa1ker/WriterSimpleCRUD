@@ -5,6 +5,7 @@ import org.dmytro.crudapp.model.Label;
 import org.dmytro.crudapp.model.Post;
 import org.dmytro.crudapp.repository.PostRepository;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class PostController {
@@ -19,7 +20,7 @@ public class PostController {
         return postRepository.save(newPost);
     }
 
-    public Post getById(Integer id) {
+    public Post getPostById(Integer id) throws FileNotFoundException {
         return postRepository.getById(id);
     }
 

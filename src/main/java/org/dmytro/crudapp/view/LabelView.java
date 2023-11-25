@@ -5,6 +5,7 @@ import org.dmytro.crudapp.enams.LabelStatus;
 import org.dmytro.crudapp.enams.PostStatus;
 import org.dmytro.crudapp.model.Label;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
@@ -67,7 +68,7 @@ public class LabelView {
         Label newLabel = labelController.createLabel(name, labelStatus);
         System.out.println("Label created with ID: " + newLabel.getId());
     }
-    public void getLabelById(){
+    public void getLabelById() throws FileNotFoundException {
         System.out.println("Enter id");
         int id = scanner.nextInt();
 
